@@ -6,7 +6,7 @@ document.getElementById('filepicker').addEventListener(
     let output = document.getElementById('listing');
     for (const file of event.target.files) {
       let item = document.createElement('li');
-      item.textContent = file.webkitRelativePath;
+      item.textContent = removeZipRootFolder(file.webkitRelativePath);
       output.appendChild(item);
     }
     await Promise.all(
@@ -31,4 +31,8 @@ async function addFileToZip(file, filePath) {
     };
     fileReader.readAsArrayBuffer(file);
   });
+}
+
+function removeZipRootFolder(path) {
+  return path.split('/').slice(1).join('/');
 }
