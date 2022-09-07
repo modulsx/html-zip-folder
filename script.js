@@ -11,7 +11,7 @@ document.getElementById('filepicker').addEventListener(
     }
     await Promise.all(
       [...event.target.files].map((file) => {
-        return addFileToZip(file, file.webkitRelativePath);
+        return addFileToZip(file, removeZipRootFolder(file.webkitRelativePath));
       })
     ).then(() => {
       zip.generateAsync({ type: 'blob' }).then(function (content) {
